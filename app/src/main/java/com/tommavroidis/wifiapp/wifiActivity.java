@@ -66,8 +66,8 @@ public class wifiActivity extends AppCompatActivity{
             unregisterReceiver(this);
 
             for (ScanResult scanResult : results) {
-                arrayList.add(scanResult.SSID + " - " + scanResult.capabilities + " -Freq=" + scanResult.frequency
-                + " -level=" + scanResult.level);
+                arrayList.add(scanResult.SSID + "\n" + scanResult.capabilities + "\nFreq=" + scanResult.frequency
+                + "\n-level=" + scanResult.level);
                 adapter.notifyDataSetChanged();
             }
         }
