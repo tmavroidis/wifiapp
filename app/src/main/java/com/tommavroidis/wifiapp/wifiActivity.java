@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.location.Location;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class wifiActivity extends AppCompatActivity{
     private List<ScanResult> results;
     private ArrayList<String> arrayList = new ArrayList<>();
     private ArrayAdapter adapter;
+    private Location currentBestLocation = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,8 +68,27 @@ public class wifiActivity extends AppCompatActivity{
             unregisterReceiver(this);
 
             for (ScanResult scanResult : results) {
+
+                String example = ("who knows");
+                if (scanResult.level < -81) {
+                    example = ("Unlikely connection");
+                }   else if (scanResult.level < -70) {
+                    example = ("Unstable connection");
+                }   else if (scanResult.level < -68) {
+                    example = ("Light Browsing and email only");
+                }   else if (scanResult.level < -61) {
+                    example = ("Minimum for voice and non-HD video");
+                }   else if (scanResult.level < -51) {
+                    example = ("Good Reliable Signal");
+                }   else if (scanResult.level < -31) {
+                    example = ("Excellent Signal");
+                }  else if (scanResult.level < -0) {
+                    example = ("Perfect Signal");
+                }
+
+
                 arrayList.add(scanResult.SSID + "\n" + scanResult.capabilities + "\nFreq=" + scanResult.frequency
-                + "\n-level=" + scanResult.level);
+                + "\nlevel= " + scanResult.level + "dbm " + example);
                 adapter.notifyDataSetChanged();
             }
         }
